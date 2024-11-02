@@ -1,0 +1,23 @@
+
+plugins {
+    id 'groovy'
+}
+
+group = 'io.malachai'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+class PluginVersion {
+    static SPRING_BOOT = "3.1.2"
+    static SPRING_DEPENDENCY_MANAGEMENT = "1.1.2"
+}
+
+dependencies {
+
+    implementation "org.springframework.boot:org.springframework.boot.gradle.plugin:${PluginVersion.SPRING_BOOT}"
+    implementation "io.spring.gradle:dependency-management-plugin:${PluginVersion.SPRING_DEPENDENCY_MANAGEMENT}"
+
+}

@@ -1,0 +1,61 @@
+import io.malachai.homebar.Version
+import org.gradle.plugins.ide.eclipse.model.EclipseJdt
+import org.springframework.boot.gradle.dsl.SpringBootExtension
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'com.diffplug.spotless' version '6.11.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileJava {
+        extendsFrom annotationProcessor
+    }
+}
+
+allprojects {
+
+    group = 'io.malachai.homebar'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+}
+
+subprojects {
+
+    pluginManager.withPlugin("org.springframework.boot") {
+        springBoot {
+            mainClass.set("io.malachai.homebar.Application")
+        }
+    }
+
+    apply {
+        plugin 'java'
+        plugin 'com.diffplug.spotless'
+        plugin 'org.springframework.boot'
+        plugin 'io.spring.dependency-management'
+    }
+
+    spotless {
+        java {
+            googleJavaFormat().aosp()
+        }
+    }
+
+    afterEvaluate {
+        tasks.classes.dependsOn spotlessApply
+    }
+
+}
+
+dependencies {
+
+}

@@ -1,0 +1,19 @@
+rootProject.name = 'homebar'
+include 'common'
+
+include 'web'
+
+include (
+        'account:presentation',
+        'account:application',
+        'account:domain',
+        'account:internal'
+)
+
+include 'query'
+
+findProject(':account:presentation')?.name = 'account-presentation'
+findProject(':account:application')?.name = 'account-application'
+findProject(':account:domain')?.name = 'account-domain'
+findProject(':account:internal')?.name = 'account-internal'
+

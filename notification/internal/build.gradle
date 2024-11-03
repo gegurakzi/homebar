@@ -1,10 +1,7 @@
-import io.malachai.homebar.Version
 
 dependencies {
     implementation project(':common')
-
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${Version.MYBATIS_SPRING_VERSION}"
+    implementation project(':notification:notification-domain')
 
     compileOnly 'org.projectlombok:lombok'
 

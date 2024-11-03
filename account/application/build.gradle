@@ -1,6 +1,8 @@
 
 dependencies {
+    implementation project(':common')
     implementation project(':account:account-domain')
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     compileOnly 'org.projectlombok:lombok'

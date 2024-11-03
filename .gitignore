@@ -40,3 +40,6 @@ bin/
 
 ### Groovy Lib ###
 lib/
+
+### Server Properties ###
+**/application.yaml

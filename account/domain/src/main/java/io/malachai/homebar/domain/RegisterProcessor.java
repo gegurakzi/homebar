@@ -11,6 +11,8 @@ public class RegisterProcessor {
     private final PasswordEncryptor encryptor;
 
     public Account register(String email, String password, String nickname) {
+        Account validation = repository.findByEmail(email);
+        if (validation != null) throw new DuplicatedEmailException("이미 사용중인 이메일 입니다.");
         Account account = Account.register(email, encryptor.encrypt(password), nickname);
         account.verifyEmail();
         repository.save(account);

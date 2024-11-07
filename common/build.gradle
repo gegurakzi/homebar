@@ -1,5 +1,11 @@
+import io.malachai.homebar.Version
 
 dependencies {
+
+    implementation "com.sun.xml.bind:jaxb-core:${Version.JAXB_VERSION}"
+    implementation "com.sun.xml.bind:jaxb-impl:${Version.JAXB_VERSION}"
+
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

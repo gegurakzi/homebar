@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal.jpa;
+package io.malachai.homebar.extern.jpa;
 
 import io.malachai.homebar.domain.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal;
+package io.malachai.homebar.extern;
 
 import io.malachai.homebar.DomainEventPublisher;
 import io.malachai.homebar.domain.event.DomainEvent;

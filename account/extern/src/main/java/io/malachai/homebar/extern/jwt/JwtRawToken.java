@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal.jwt;
+package io.malachai.homebar.extern.jwt;
 
 import java.util.Date;
 

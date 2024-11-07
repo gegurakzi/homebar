@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal.jwt;
+package io.malachai.homebar.extern.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.malachai.homebar.domain.TokenGenerator;

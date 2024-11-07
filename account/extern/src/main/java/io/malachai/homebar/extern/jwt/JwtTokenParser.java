@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal.jwt;
+package io.malachai.homebar.extern.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -6,8 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.malachai.homebar.internal.ExpiredAccessTokenException;
-import io.malachai.homebar.internal.InvalidAccessTokenException;
+import io.malachai.homebar.extern.ExpiredAccessTokenException;
+import io.malachai.homebar.extern.InvalidAccessTokenException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

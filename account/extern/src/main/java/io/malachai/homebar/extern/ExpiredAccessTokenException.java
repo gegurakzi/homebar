@@ -1,4 +1,4 @@
-package io.malachai.homebar.internal;
+package io.malachai.homebar.extern;
 
 public class ExpiredAccessTokenException extends RuntimeException {
 

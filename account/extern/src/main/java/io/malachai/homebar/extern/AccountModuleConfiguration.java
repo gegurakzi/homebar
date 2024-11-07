@@ -1,11 +1,11 @@
-package io.malachai.homebar.internal;
+package io.malachai.homebar.extern;
 
 import io.malachai.homebar.domain.LoginProcessor;
 import io.malachai.homebar.domain.RegisterProcessor;
-import io.malachai.homebar.internal.jwt.JwtTokenGenerator;
-import io.malachai.homebar.internal.jwt.JwtTokenParser;
-import io.malachai.homebar.internal.jwt.JwtTokenProperties;
-import io.malachai.homebar.internal.jwt.JwtTokenReader;
+import io.malachai.homebar.extern.jwt.JwtTokenGenerator;
+import io.malachai.homebar.extern.jwt.JwtTokenParser;
+import io.malachai.homebar.extern.jwt.JwtTokenProperties;
+import io.malachai.homebar.extern.jwt.JwtTokenReader;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

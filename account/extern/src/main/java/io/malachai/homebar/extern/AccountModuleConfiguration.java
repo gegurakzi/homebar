@@ -2,6 +2,7 @@ package io.malachai.homebar.extern;
 
 import io.malachai.homebar.domain.LoginProcessor;
 import io.malachai.homebar.domain.RegisterProcessor;
+import io.malachai.homebar.domain.UpdateProcessor;
 import io.malachai.homebar.extern.jwt.JwtTokenGenerator;
 import io.malachai.homebar.extern.jwt.JwtTokenParser;
 import io.malachai.homebar.extern.jwt.JwtTokenProperties;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Import;
     ApplicationDomainEventPublisher.class,
     RegisterProcessor.class,
     LoginProcessor.class,
+    UpdateProcessor.class,
     BCryptPasswordEncryptor.class,
     JwtTokenProperties.class,
     JwtTokenReader.class,

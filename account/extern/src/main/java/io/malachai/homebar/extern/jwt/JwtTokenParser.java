@@ -19,9 +19,10 @@ public class JwtTokenParser {
         try {
             Claims claims =
                     Jwts.parser()
-                            .setSigningKey(properties.secretKey())
-                            .parseClaimsJwt(tokenString)
-                            .getBody();
+                            .verifyWith(properties.secretKey())
+                            .build()
+                            .parseSignedClaims(tokenString)
+                            .getPayload();
             return new JwtRawToken(claims.getSubject(), claims.getId(), claims.getExpiration());
         } catch (ExpiredJwtException e) {
             throw new ExpiredAccessTokenException("인증 시간이 만료되었습니다. 다시 로그인 해주세요.");
@@ -29,6 +30,7 @@ public class JwtTokenParser {
                 | MalformedJwtException
                 | SignatureException
                 | IllegalArgumentException e) {
+            e.printStackTrace();
             throw new InvalidAccessTokenException("인증 요청이 잘못되었습니다. 다시 로그인 해주세요.");
         }
     }

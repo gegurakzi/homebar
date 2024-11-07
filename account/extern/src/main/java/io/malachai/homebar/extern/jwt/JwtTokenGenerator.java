@@ -17,25 +17,25 @@ public class JwtTokenGenerator implements TokenGenerator {
 
     private String generateAccessToken(String email) {
         return Jwts.builder()
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(
+                .subject(email)
+                .issuedAt(new Date())
+                .expiration(
                         new Date(
                                 System.currentTimeMillis()
                                         + properties.accessTokenExpirationMillis()))
-                .signWith(properties.signatureAlgorithm(), properties.secretKey())
+                .signWith(properties.secretKey())
                 .compact();
     }
 
     private String generateRefreshToken(String email) {
         return Jwts.builder()
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(
+                .subject(email)
+                .issuedAt(new Date())
+                .expiration(
                         new Date(
                                 System.currentTimeMillis()
                                         + properties.refreshTokenExpirationMillis()))
-                .signWith(properties.signatureAlgorithm(), properties.secretKey())
+                .signWith(properties.secretKey())
                 .compact();
     }
 }

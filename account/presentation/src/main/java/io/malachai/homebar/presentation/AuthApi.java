@@ -5,10 +5,13 @@ import io.malachai.homebar.presentation.request.LoginRequest;
 import io.malachai.homebar.presentation.request.RegisterConfirmRequest;
 import io.malachai.homebar.presentation.request.RegisterRequest;
 import io.malachai.homebar.presentation.request.TokenReissueRequest;
+import io.malachai.homebar.presentation.request.UpdateRequest;
 import io.malachai.homebar.presentation.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,6 +38,14 @@ public class AuthApi implements AuthSpecification {
         return new ResponseEntity<>(
                 new TokenResponse(tokens.accessToken(), tokens.refreshToken()),
                 HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateInfo(UpdateRequest request) {
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        if (principal == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        executor.update(request.toCommand(principal.getPrincipal().toString()));
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @Override

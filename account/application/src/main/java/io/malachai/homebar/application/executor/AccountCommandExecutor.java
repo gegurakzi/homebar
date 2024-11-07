@@ -4,11 +4,13 @@ import io.malachai.homebar.DomainEventPublisher;
 import io.malachai.homebar.application.command.LoginCommand;
 import io.malachai.homebar.application.command.RegisterCommand;
 import io.malachai.homebar.application.command.RegisterConfirmCommand;
+import io.malachai.homebar.application.command.UpdateCommand;
 import io.malachai.homebar.application.transfer.TokenDto;
 import io.malachai.homebar.domain.LoginProcessor;
 import io.malachai.homebar.domain.RegisterProcessor;
 import io.malachai.homebar.domain.TokenGenerator;
 import io.malachai.homebar.domain.TokenPair;
+import io.malachai.homebar.domain.UpdateProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class AccountCommandExecutor implements AccountUsecase {
 
     private final RegisterProcessor registerProcessor;
     private final LoginProcessor loginProcessor;
+    private final UpdateProcessor updateProcessor;
 
     private final TokenGenerator tokenGenerator;
 
@@ -42,5 +45,10 @@ public class AccountCommandExecutor implements AccountUsecase {
             return new TokenDto(tokens.accessToken(), tokens.refreshToken());
         }
         return new TokenDto(tokens.accessToken(), null);
+    }
+
+    public void update(UpdateCommand command) {
+        var account = updateProcessor.update(command.email(), command.nickname());
+        account.pollAllEvents().forEach(publisher::publishEvent);
     }
 }

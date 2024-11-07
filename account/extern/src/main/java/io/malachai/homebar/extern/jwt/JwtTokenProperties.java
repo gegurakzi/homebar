@@ -1,27 +1,25 @@
 package io.malachai.homebar.extern.jwt;
 
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import javax.crypto.SecretKey;
 
 public class JwtTokenProperties {
 
-    private static final String secretKey = "76aab302";
+    private static final String secretKey = "d3fe9efe-d30d-4239-b9f2-542afc2b9608";
     private static final Long accessTokenExpirationMillis = 3_600_000L;
     private static final Long refreshTokenExpirationMillis = 1_209_600_000L;
-    private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    public String secretKey() {
-        return this.secretKey;
+    public SecretKey secretKey() {
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public Long accessTokenExpirationMillis() {
-        return this.accessTokenExpirationMillis;
+        return accessTokenExpirationMillis;
     }
 
     public Long refreshTokenExpirationMillis() {
-        return this.refreshTokenExpirationMillis;
-    }
-
-    public SignatureAlgorithm signatureAlgorithm() {
-        return this.signatureAlgorithm;
+        return refreshTokenExpirationMillis;
     }
 }

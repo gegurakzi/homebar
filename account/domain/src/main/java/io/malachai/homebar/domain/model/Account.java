@@ -2,6 +2,7 @@ package io.malachai.homebar.domain.model;
 
 import io.malachai.homebar.domain.event.LoginEvent;
 import io.malachai.homebar.domain.event.RegisterConfirmedEvent;
+import io.malachai.homebar.domain.event.UpdateEvent;
 import io.malachai.homebar.domain.event.VerifyEmailEvent;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -93,6 +94,11 @@ public class Account extends RootModel {
     public void login() {
         this.lastLoginAt = LocalDateTime.now();
         offerEvent(new LoginEvent(this.email));
+    }
+
+    public void update(String nickname) {
+        this.nickname = nickname;
+        offerEvent(new UpdateEvent(this.email));
     }
 
     public boolean passwordEquals(String password) {

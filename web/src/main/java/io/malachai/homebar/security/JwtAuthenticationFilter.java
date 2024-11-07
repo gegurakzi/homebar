@@ -17,8 +17,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -41,14 +43,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             JwtRawToken rawToken = tokenParser.parse(tokenString);
                             Account principal = accountRepository.findByEmail(rawToken.subject());
 
-                            if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                                UsernamePasswordAuthenticationToken ctx =
-                                        UsernamePasswordAuthenticationToken.authenticated(
-                                                principal.getEmail(),
-                                                token,
-                                                authorities(principal.getRoles()));
-                                SecurityContextHolder.getContext().setAuthentication(ctx);
-                            }
+                            UsernamePasswordAuthenticationToken ctx =
+                                    UsernamePasswordAuthenticationToken.authenticated(
+                                            principal.getEmail(),
+                                            token,
+                                            authorities(principal.getRoles()));
+                            SecurityContextHolder.getContext().setAuthentication(ctx);
                         });
 
         filterChain.doFilter(request, response);

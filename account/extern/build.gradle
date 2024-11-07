@@ -5,7 +5,11 @@ dependencies {
     implementation project(':account:account-domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation "io.jsonwebtoken:jjwt:${Version.JWT_VERSION}"
+
+    implementation "io.jsonwebtoken:jjwt-api:${Version.JWT_VERSION}"
+    implementation "io.jsonwebtoken:jjwt-impl:${Version.JWT_VERSION}"
+    implementation "io.jsonwebtoken:jjwt-jackson:${Version.JWT_VERSION}"
+
     implementation 'org.springframework.security:spring-security-crypto'
 
     implementation "com.mysql:mysql-connector-j:${Version.MYSQL_VERSION}"

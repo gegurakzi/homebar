@@ -38,6 +38,9 @@ public class AccountCommandExecutor implements AccountUsecase {
         var account = loginProcessor.login(command.email(), command.password());
         TokenPair tokens = tokenGenerator.generate(account.getEmail());
         account.pollAllEvents().forEach(publisher::publishEvent);
-        return new TokenDto(tokens.accessToken(), tokens.refreshToken());
+        if (command.withRefreshToken()) {
+            return new TokenDto(tokens.accessToken(), tokens.refreshToken());
+        }
+        return new TokenDto(tokens.accessToken(), null);
     }
 }

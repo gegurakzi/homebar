@@ -7,22 +7,22 @@ include (
         'account:presentation',
         'account:application',
         'account:domain',
-        'account:internal'
+        'account:extern'
 )
 findProject(':account:presentation')?.name = 'account-presentation'
 findProject(':account:application')?.name = 'account-application'
 findProject(':account:domain')?.name = 'account-domain'
-findProject(':account:internal')?.name = 'account-internal'
+findProject(':account:extern')?.name = 'account-extern'
 
 include (
         'notification:presentation',
         'notification:application',
         'notification:domain',
-        'notification:internal',
+        'notification:extern',
 )
 findProject(':notification:presentation')?.name = 'notification-presentation'
 findProject(':notification:application')?.name = 'notification-application'
 findProject(':notification:domain')?.name = 'notification-domain'
-findProject(':notification:internal')?.name = 'notification-internal'
+findProject(':notification:extern')?.name = 'notification-extern'
 
 include 'query'

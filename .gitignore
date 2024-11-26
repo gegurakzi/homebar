@@ -43,3 +43,6 @@ lib/
 
 ### Server Properties ###
 **/application.yaml
+
+### etc ###
+uploads/

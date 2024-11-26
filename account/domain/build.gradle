@@ -6,12 +6,17 @@ dependencies {
     implementation 'jakarta.persistence:jakarta.persistence-api'
     implementation "org.hibernate:hibernate-core:${Version.HIBERNATE_VERSION}"
 
+    implementation "com.google.guava:guava:${Version.GUAVA_VERSION}"
+
     compileOnly 'org.projectlombok:lombok'
 
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testImplementation "org.mockito:mockito-core:${Version.MOCKITO_VERSION}"
+    testImplementation "org.assertj:assertj-core:${Version.ASSERTJ_VERSION}"
 }
 
 test {

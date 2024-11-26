@@ -6,6 +6,7 @@ import io.malachai.homebar.application.command.RegisterCommand;
 import io.malachai.homebar.application.command.RegisterConfirmCommand;
 import io.malachai.homebar.application.command.UpdateCommand;
 import io.malachai.homebar.application.transfer.TokenDto;
+import io.malachai.homebar.domain.AuthenticatedUser;
 import io.malachai.homebar.domain.LoginProcessor;
 import io.malachai.homebar.domain.RegisterProcessor;
 import io.malachai.homebar.domain.TokenGenerator;
@@ -39,7 +40,13 @@ public class AccountCommandExecutor implements AccountUsecase {
 
     public TokenDto login(LoginCommand command) {
         var account = loginProcessor.login(command.email(), command.password());
-        TokenPair tokens = tokenGenerator.generate(account.getEmail());
+        TokenPair tokens =
+                tokenGenerator.generate(
+                        new AuthenticatedUser(
+                                account.getEmail(),
+                                account.getNickname(),
+                                account.isEmailVerified(),
+                                account.getRoles()));
         account.pollAllEvents().forEach(publisher::publishEvent);
         if (command.withRefreshToken()) {
             return new TokenDto(tokens.accessToken(), tokens.refreshToken());

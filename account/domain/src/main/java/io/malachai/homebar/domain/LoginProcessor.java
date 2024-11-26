@@ -16,6 +16,7 @@ public class LoginProcessor {
         if (!encryptor.matches(password, account.getPassword()))
             throw new WrongPasswordException("비밀번호가 틀렸습니다.");
         account.login();
+        repository.save(account);
         return account;
     }
 }

@@ -1,5 +1,7 @@
 package io.malachai.homebar.domain.model;
 
+import com.google.common.annotations.VisibleForTesting;
+import io.malachai.homebar.domain.Role;
 import io.malachai.homebar.domain.event.LoginEvent;
 import io.malachai.homebar.domain.event.RegisterConfirmedEvent;
 import io.malachai.homebar.domain.event.UpdateEvent;
@@ -23,7 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "ACCOUNT")
 @Getter
-public class Account extends RootModel {
+public class Account extends RootAggregate {
 
     public Account() {}
 
@@ -54,6 +56,7 @@ public class Account extends RootModel {
             String email,
             String password,
             String nickname,
+            String emailVerifyToken,
             boolean emailVerified,
             LocalDateTime joinedAt,
             LocalDateTime lastLoginAt,
@@ -61,7 +64,7 @@ public class Account extends RootModel {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.emailVerifyToken = null;
+        this.emailVerifyToken = emailVerifyToken;
         this.emailVerified = emailVerified;
         this.joinedAt = joinedAt;
         this.lastLoginAt = lastLoginAt;
@@ -74,16 +77,13 @@ public class Account extends RootModel {
                         email,
                         password,
                         nickname,
+                        UUID.randomUUID().toString(),
                         false,
                         LocalDateTime.now(),
                         null,
                         Set.of(Role.USER));
+        account.offerEvent(new VerifyEmailEvent(account.email));
         return account;
-    }
-
-    public void verifyEmail() {
-        this.emailVerifyToken = UUID.randomUUID().toString();
-        offerEvent(new VerifyEmailEvent(this.email));
     }
 
     public void confirmRegister() {
@@ -101,9 +101,29 @@ public class Account extends RootModel {
         offerEvent(new UpdateEvent(this.email));
     }
 
-    public boolean passwordEquals(String password) {
-        return this.password.equals(password);
-    }
-
     public void logout() {}
+
+    @VisibleForTesting
+    public Account(
+            Long id,
+            String email,
+            String password,
+            String nickname,
+            String emailVerifyToken,
+            boolean emailVerified,
+            LocalDateTime joinedAt,
+            LocalDateTime lastModifiedAt,
+            LocalDateTime lastLoginAt,
+            Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.emailVerifyToken = emailVerifyToken;
+        this.emailVerified = emailVerified;
+        this.joinedAt = joinedAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.lastLoginAt = lastLoginAt;
+        this.roles = roles;
+    }
 }

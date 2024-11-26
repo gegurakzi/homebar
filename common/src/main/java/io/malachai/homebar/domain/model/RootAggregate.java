@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
-public abstract class RootModel {
+public abstract class RootAggregate {
 
     private Queue<DomainEvent> events = new LinkedList<>();
 

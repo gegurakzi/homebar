@@ -17,7 +17,7 @@ public class AccountRepositoryAdapter implements AccountRepository {
     }
 
     public Account findById(Long id) {
-        return jpaInterface.findById(id).orElseThrow(/*EXCEPTION*/ );
+        return jpaInterface.findById(id).orElseThrow(/* TODO: EXCEPTION*/ );
     }
 
     @Override

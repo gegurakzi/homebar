@@ -1,11 +1,9 @@
 package io.malachai.homebar.security;
 
-import io.malachai.homebar.domain.model.Account;
-import io.malachai.homebar.domain.model.AccountRepository;
-import io.malachai.homebar.domain.model.Role;
-import io.malachai.homebar.extern.jwt.JwtRawToken;
-import io.malachai.homebar.extern.jwt.JwtTokenParser;
-import io.malachai.homebar.extern.jwt.JwtTokenReader;
+import io.malachai.homebar.domain.RawToken;
+import io.malachai.homebar.domain.Role;
+import io.malachai.homebar.domain.TokenParser;
+import io.malachai.homebar.domain.TokenReader;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,10 +24,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final AccountRepository accountRepository;
-
-    private final JwtTokenReader tokenReader;
-    private final JwtTokenParser tokenParser;
+    private final TokenReader tokenReader;
+    private final TokenParser tokenParser;
 
     @Override
     protected void doFilterInternal(
@@ -40,17 +36,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .read(token)
                 .ifPresent(
                         tokenString -> {
-                            JwtRawToken rawToken = tokenParser.parse(tokenString);
-                            Account principal = accountRepository.findByEmail(rawToken.subject());
-
+                            RawToken rawToken = tokenParser.parse(tokenString);
                             UsernamePasswordAuthenticationToken ctx =
                                     UsernamePasswordAuthenticationToken.authenticated(
-                                            principal.getEmail(),
+                                            rawToken.principal(),
                                             token,
-                                            authorities(principal.getRoles()));
+                                            authorities(rawToken.principal().roles()));
                             SecurityContextHolder.getContext().setAuthentication(ctx);
                         });
-
         filterChain.doFilter(request, response);
     }
 
